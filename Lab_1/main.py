@@ -39,3 +39,5 @@ nanMatrix = df.isnull()
 print('После OHE-преобразования')
 print(nanMatrix.sum())
 print()
+
+df.to_csv("starship.csv", index=False)
