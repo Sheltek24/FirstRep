@@ -17,7 +17,9 @@ for col in columnsMedian:
     df[col] = df[col].fillna(df[col].median())
 columnsMean = ['CryoSleep', 'VIP']
 for col in columnsMean:
-    df[col] = df[col].fillna(df[col].mean())
+    df[col] = df[col].replace({'True': 1, 'False': 0})
+    df[col] = df[col].astype(float)
+    df[col] = df[col].fillna(df[col].mean()).round().astype(bool)
 nanMatrix = df.isnull()
 print('После заполнения')
 print(nanMatrix.sum())
@@ -38,6 +40,7 @@ df.drop('PassengerId', axis=1, inplace=True)
 df.drop('Name', axis=1, inplace=True)
 df.drop('Cabin', axis=1, inplace=True)
 df = pd.get_dummies(df, columns=['HomePlanet', 'Destination'], drop_first=True)
+df = df.replace({'True': 1, 'False': 0})
 print('После OHE-преобразования')
 print(df)
 print()
